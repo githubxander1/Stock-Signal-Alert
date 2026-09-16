@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="strategy.css"><title>策略扫描</title></head>
+<body>
+  <header><div><h1>策略扫描</h1><p>基于自选股日线计算，不依赖第三方登录服务</p></div><span id="version"></span></header>
+  <nav id="strategyNav"></nav>
+  <section class="explain"><h2 id="strategyTitle"></h2><p id="strategyExplain"></p></section>
+  <section class="stats"><span>扫描标的 <b id="total">0</b></span><span>当前触发 <b id="matched">0</b></span><span>做多 <b id="buyCount">0</b></span><span>做空 <b id="sellCount">0</b></span><span id="updated"></span></section>
+  <main><table><thead><tr><th>标的</th><th>最新价</th><th>当前信号</th><th>最近信号</th><th>日线</th></tr></thead><tbody id="results"><tr><td colspan="5" class="empty">正在加载</td></tr></tbody></table></main>
+  <script type="module" src="strategy.js"></script>
+</body>
+</html>

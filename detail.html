@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="detail.css"><title>标的详情</title></head>
+<body>
+  <header><div><h1 id="title">标的详情</h1><span id="version"></span></div><div class="toolbar"><button data-view="intraday">分时</button><button data-view="day" class="active">日K</button><button data-view="month">月K</button><button id="refresh">刷新</button></div></header>
+  <div id="status">加载中...</div>
+  <main><div class="chart-wrap"><canvas id="chart"></canvas><div id="tooltip"></div></div></main>
+  <section id="legend"><span class="dot buy"></span>多点 <span class="dot sell"></span>空点 <span class="line"></span>收盘/价格 <span class="hint">悬浮信号点可查看具体策略</span></section>
+  <script type="module" src="detail.js"></script>
+</body>
+</html>
