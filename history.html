@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="history.css"><title>首次信号记录</title></head>
+<body>
+  <header><div><h1>首次信号记录</h1><p>每只标的、每个交易日，多头和空头方向各保留首次触发</p></div><div class="actions"><button id="export">导出 CSV</button><button id="clear" class="quiet">清空记录</button></div></header>
+  <section class="filters"><label>方向<select id="direction"><option value="">全部</option><option value="BUY">多头</option><option value="SELL">空头</option></select></label><label>标的<input id="query" type="search" placeholder="名称或代码"></label><span id="count"></span></section>
+  <main><table><thead><tr><th>交易日</th><th>首次记录时间</th><th>标的</th><th>方向</th><th>触发策略</th><th>记录价格</th><th>详情</th></tr></thead><tbody id="rows"><tr><td colspan="7" class="empty">正在读取</td></tr></tbody></table></main>
+  <script type="module" src="history.js"></script>
+</body>
+</html>

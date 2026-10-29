@@ -19,7 +19,7 @@ async function load() {
   document.querySelector("#status").textContent = "加载中...";
   try {
     if (view === "intraday") { const result = await fetchIntraday(code); document.querySelector("#title").textContent = `${result.name} ${code} · 分时`; chartData = result.points; markers = []; }
-    else { const result = await fetchKlines(code, view === "month" ? "103" : "101"); document.querySelector("#title").textContent = `${result.name} ${code} · ${view === "month" ? "月K" : "日K"}`; chartData = result.candles; markers = view === "day" ? signalMarkers(result.candles) : []; }
+    else { const result = await fetchKlines(code, view === "month" ? "103" : "101"); document.querySelector("#title").textContent = `${result.name} ${code} · ${view === "month" ? "月K" : "日K"}${result.stale ? " · 缓存" : ""}`; chartData = result.candles; markers = view === "day" ? signalMarkers(result.candles) : []; }
     document.querySelector("#status").textContent = `${chartData.length} 个数据点 · 鼠标悬浮查看详情`; draw();
   } catch (error) { document.querySelector("#status").textContent = error.message; chartData = []; draw(); }
 }

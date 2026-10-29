@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Stock Signal Alert",
-  "version": "0.7.2",
+  "version": "0.7.4",
   "description": "Watch daily stock signals and receive deduplicated browser alerts.",
   "permissions": ["storage", "alarms", "notifications"],
   "host_permissions": ["https://push2.eastmoney.com/*", "https://push2his.eastmoney.com/*", "https://smartbox.gtimg.cn/*", "https://web.ifzq.gtimg.cn/*", "https://proxy.finance.qq.com/*", "https://qt.gtimg.cn/*"],

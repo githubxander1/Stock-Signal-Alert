@@ -15,6 +15,7 @@ document.addEventListener("click", event => { if (!event.target.closest(".search
 document.querySelector("#refresh").addEventListener("click", () => render());
 document.querySelector("#checkNow").addEventListener("click", checkNow);
 document.querySelector("#openStrategies").addEventListener("click", () => window.open(chrome.runtime.getURL("strategy.html"), "_blank"));
+document.querySelector("#openHistory").addEventListener("click", () => window.open(chrome.runtime.getURL("history.html"), "_blank"));
 document.querySelector("#openBonds").addEventListener("click", () => window.open(chrome.runtime.getURL("bond.html"), "_blank"));
 document.querySelector("#notifyEnabled").addEventListener("change", async event => {
   const { settings = {} } = await chrome.storage.local.get(settingsKey);
@@ -73,8 +74,9 @@ async function render() {
     node.querySelector(".strategy-row").append(...Object.entries(STRATEGIES).map(([id, strategy]) => strategyToggle(item, id, strategy.name)));
     watchlistEl.append(node);
     try {
-      const { name, candles } = await fetchKlines(item.code);
-      node.querySelector(".stock-name").textContent = `${name} ${item.code}`;
+      const { name, candles, stale, cachedAt } = await fetchKlines(item.code);
+      node.querySelector(".stock-name").textContent = `${name} ${item.code}${stale ? " · 缓存" : ""}`;
+      if (stale && cachedAt) node.querySelector(".stock-name").title = `网络不可用，显示缓存于 ${new Date(cachedAt).toLocaleString()} 的数据`;
       node.querySelector(".price").textContent = candles.at(-1).close.toFixed(2);
       const enabledStrategies = item.strategies || defaultStrategies;
       const markers = signalMarkers(candles, enabledStrategies);
@@ -119,5 +121,5 @@ function badge(label, detail) { const element = text(label, `signal ${detail.inc
 function text(value, className) { const element = document.createElement("span"); element.className = className; element.textContent = value; return element; }
 function setStatus(value) { statusEl.textContent = value; }
 function drawChart(svg, candles, markers = []) { const offset = Math.max(0, candles.length - 60); const data = candles.slice(offset); const values = data.map(item => item.close); const min = Math.min(...values); const max = Math.max(...values); const scaleY = value => 47 - ((value - min) / (max - min || 1)) * 38; const points = values.map((value, index) => `${(index / (values.length - 1)) * 280},${scaleY(value)}`).join(" "); const marks = markers.filter(marker => marker.index >= offset).map(marker => { const x = ((marker.index - offset) / (values.length - 1)) * 280; const y = Math.max(7, Math.min(43, scaleY(candles[marker.index].close) + (marker.direction === "BUY" ? 7 : -7))); const color = marker.direction === "BUY" ? "#12b76a" : "#f04438"; return `<circle cx="${x}" cy="${y}" r="3.5" fill="${color}"/><text x="${x}" y="${y + (marker.direction === "BUY" ? 3 : -5)}" fill="#fff" font-size="5" text-anchor="middle">${marker.label}</text>`; }).join(""); svg.innerHTML = `<polyline points="${points}" fill="none" stroke="#1677ff" stroke-width="1.5"/>${marks}<line x1="0" y1="47.5" x2="280" y2="47.5" stroke="#e4e7ec"/>`; }
-async function checkNow() { setStatus("检查中..."); const result = await chrome.runtime.sendMessage({ type: "check-now" }); setStatus(result.ok ? `提醒 ${result.result.notifications || 0} 条` : result.error); }
+async function checkNow() { setStatus("检查中..."); const result = await chrome.runtime.sendMessage({ type: "check-now" }); setStatus(result.ok ? `新记录 ${result.result.recordsAdded || 0} · 提醒 ${result.result.notifications || 0}` : result.error); }
 render();

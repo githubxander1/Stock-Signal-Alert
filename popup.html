@@ -5,7 +5,7 @@
   <header><div><h1>股票信号提醒</h1><span id="version"></span></div><label class="toggle"><input id="notifyEnabled" type="checkbox"><span>提醒</span></label></header>
   <form id="addForm"><div class="search-box"><input id="codeInput" autocomplete="off" maxlength="12" placeholder="输入名称或代码，如 美的 / 000333"><div id="suggestions" role="listbox"></div></div><button title="添加标的" aria-label="添加标的">+</button></form>
   <main id="watchlist"><p class="empty">还没有标的</p></main>
-  <footer><button id="refresh" class="plain">刷新</button><button id="checkNow" class="plain">检查提醒</button><button id="openStrategies" class="plain">策略页</button><button id="openBonds" class="plain">转债</button><span id="status"></span></footer>
+  <footer><button id="refresh" class="plain">刷新</button><button id="checkNow" class="plain">检查提醒</button><button id="openStrategies" class="plain">策略页</button><button id="openHistory" class="plain">信号记录</button><button id="openBonds" class="plain">转债</button><span id="status"></span></footer>
   <template id="itemTemplate"><article class="stock"><div class="stock-head"><button class="stock-name"></button><span class="price"></span><button class="remove" title="移除" aria-label="移除">×</button></div><svg class="chart" viewBox="0 0 280 52" preserveAspectRatio="none"></svg><div class="signals"></div><div class="strategy-row"></div></article></template>
   <script type="module" src="popup.js"></script>
 </body>
